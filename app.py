@@ -21,16 +21,9 @@ def upload_image():
     data = request.get_json()
 
     if "image" in data:
-        image_data_splited = data["image"].split(";")
-
-        # image_extension = image_data_splited[0].split("/")[-1]
-        image_base64_data = image_data_splited[1].split(",")[-1]
-
         # Decode the base64 image into binary datap
         try:
-            # image_data = base64.b64decode(base64_image)
-            # print(image_data)
-            image_processor = ImagePixels(image_base64_data)
+            image_processor = ImagePixels(data["image"])
             image_processor.process_image()
             colors = image_processor.get_colors()
 

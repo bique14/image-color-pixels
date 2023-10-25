@@ -11,15 +11,16 @@ class ImagePixels:
         self.num_columns = 52
         self.portrait_width = 540
         self.portrait_height = 800
-        self.image_src = base64_image_src
         self.colors = []
+        self.image_data = {"image_src": base64_image_src, "image_extension": ""}
         # self.image_path = image_path
         # self.output_path = output_path
 
     def process_image(self):
         # image = Image.open(self.image_path)
-        image_data = base64.b64decode(self.image_src)
-        image = Image.open(BytesIO(image_data))
+        self.to_base64_data()
+        image_base64_data = base64.b64decode(self.image_data["image_src"])
+        image = Image.open(BytesIO(image_base64_data))
         image = image.resize((self.portrait_width, self.portrait_height))
 
         draw = ImageDraw.Draw(image)
@@ -52,15 +53,27 @@ class ImagePixels:
 
                 # Draw the rectangle with a border
                 # if you don't want a border block, you can set width to 0
-                draw.rectangle(
-                    [x0, y0, x1, y1], fill=average_color, outline=(0, 0, 0), width=1
-                )
+                # draw.rectangle(
+                #     [x0, y0, x1, y1], fill=average_color, outline=(0, 0, 0), width=1
+                # )
 
         # Save the resulting image
         # image.save(self.output_path)
 
         # Close the local image
         image.close()
+
+    def to_base64_data(self):
+        image_data_splited = self.image_data["image_src"].split(";")
+        image_extension = image_data_splited[0].split("/")[-1]
+        image_base64_data = image_data_splited[1].split(",")[-1]
+        self.image_data = {
+            "image_src": image_base64_data,
+            "image_extension": image_extension,
+        }
+
+    def get_image_data(self):
+        return self.image_data
 
     def get_colors(self):
         return self.colors
@@ -74,7 +87,7 @@ class ImagePixels:
 #         f"./outputs/{image_selected['name']}-output_image.{image_selected['extension']}"
 #     )
 
-#     image_processor = ImagePixels(image_path, output_image_path)
-#     # image_processor = ImagePixels("")
+#     # image_processor = ImagePixels(image_path, output_image_path)
+#     image_processor = ImagePixels("")
 #     image_processor.process_image()
 #     print(image_processor.get_colors())
