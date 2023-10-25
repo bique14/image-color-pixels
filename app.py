@@ -1,12 +1,13 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
 from image_to_pixels import ImagePixels
-import base64
+
+# from flask_cors import CORS
+
 
 app = Flask(__name__)
 
 # Allow CORS for all routes
-CORS(app)
+# CORS(app)
 
 
 @app.route("/", methods=["GET"])
