@@ -5,6 +5,7 @@ from image_to_pixels import ImagePixels
 
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024  # 32MB
 
 # Allow CORS for all routes
 # CORS(app)
