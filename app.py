@@ -6,7 +6,7 @@ import os
 CLIENT_ENDPOINT = os.environ.get("CLIENT_ENDPOINT")
 
 app = Flask(__name__)
-app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5MB
+# app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5MB
 
 CORS(app, resources={r"/upload": {"origins": CLIENT_ENDPOINT}})
 
