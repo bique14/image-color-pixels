@@ -5,18 +5,15 @@ import os
 
 CLIENT_ENDPOINT = os.environ.get("CLIENT_ENDPOINT")
 
-
 app = Flask(__name__)
-app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024  # 3MB
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5MB
 
-# Allow CORS for all routes
-# CORS(app)
 CORS(app, resources={r"/upload": {"origins": CLIENT_ENDPOINT}})
 
 
 @app.route("/", methods=["GET"])
 def check_health():
-    response = {"message": "ok:" + CLIENT_ENDPOINT}
+    response = {"message": "ok:", "client": CLIENT_ENDPOINT}
     return jsonify(response)
 
 
