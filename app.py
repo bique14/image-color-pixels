@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from image_to_pixels import ImagePixels
 
+
 # from flask_cors import CORS
 
 
@@ -50,5 +51,5 @@ def upload_image():
     return jsonify(response)
 
 
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+#     app.run()
