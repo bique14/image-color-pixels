@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, request
 from image_to_pixels import ImagePixels
+from flask_cors import CORS
+import os
 
-
-# from flask_cors import CORS
+CLIENT_ENDPOINT = os.environ.get("CLIENT_ENDPOINT")
 
 
 app = Flask(__name__)
@@ -10,11 +11,12 @@ app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024  # 3MB
 
 # Allow CORS for all routes
 # CORS(app)
+CORS(app, resources={r"/upload": {"origins": CLIENT_ENDPOINT}})
 
 
 @app.route("/", methods=["GET"])
 def check_health():
-    response = {"message": "ok"}
+    response = {"message": "ok:" + CLIENT_ENDPOINT}
     return jsonify(response)
 
 
